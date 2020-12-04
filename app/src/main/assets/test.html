@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-cmn-Hans">
+
+    <meta charset="UTF-8">
+    <script src="dsbridge.js"></script>
+
+</head>
+
+<style>
+
+    .btn{
+        text-align: center;
+        color: #DDD;
+        padding: 30px;
+        margin: 50px;
+        background: #999;
+        font-size: 24px;
+        border-radius: 4px;
+        box-shadow: 4px 2px 10px #888;
+    }
+
+</style>
+
+<body>
+
+<div class="btn" onclick="synCall()">同步调用</div>
+<div class="btn" onclick="asynCall()">异步调用</div>
+
+
+<script>
+
+    function synCall(){
+        alert(dsBridge.call("synchronizedCall","test sync"))
+    }
+
+    function asynCall(){
+        dsBridge.call("asynchronizedCall","test sync",function(v){
+            alert(v)
+        })
+    }
+
+    dsBridge.register('toUpper', function(str){
+        return str.toUpperCase()
+    })
+
+    dsBridge.registerAsyn('testAsyn', function(cb){
+        cb('异步调用成功')
+    })
+
+</script>
+
+</body>
+
+</html>

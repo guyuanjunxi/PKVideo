@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<!--
+简体中文页面：html lang=zh-cmn-Hans
+繁体中文页面：html lang=zh-cmn-Hant
+英语页面：html lang=en -->
+<head lang="zh-cmn-Hans">
+    <!-- 兼容搜素引擎 webkit -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome">
+    <!--
+    width:可视区域的宽度，值可为数字或关键词device-width
+     height:同width
+     intial-scale:页面首次被显示是可视区域的缩放级别，取值1.0则页面按实际尺寸显示，无任何缩放
+     maximum-scale=1.0, minimum-scale=1.0;可视区域的缩放级别，
+     maximum-scale用户可将页面放大的程序，1.0将禁止用户放大到实际尺寸之上。
+     user-scalable:是否可对页面进行缩放，no 禁止缩放 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="dsbridge.js"></script>
+</head>
+<style>
+		*{padding 0; margin:0}
+		.poster{
+			position : relative;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: flex-start;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			object-fit: contain;
+			z-index: 2;
+		}
+		.button{
+			top: 0px;
+			left: 0px;
+			right:  0px;
+			bottom: 0px;
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			border-style: solid;
+			z-index: 3;
+		}
+
+		.btn{
+			position: relative;
+			text-align: center;
+			background: #D8D8D8;
+			color: #222;
+			padding: 20px;
+			margin: 55px;
+			font-size: 24px;
+			border-radius: 4px;
+			box-shadow: 4px 2px 10px #999;
+		}
+
+		.btn:active{
+			opacity: .7;
+			box-shadow: 4px 2px 10px #555;
+		}
+
+</style>
+<body>
+<div id="play" class="poster">
+    <img src="poster.jpg" width="100%"  height="auto"/>
+    <div class="button" onclick="play()">
+        <img class="playImg" src="play1.png" />
+    </div>
+</div>
+
+<div class="btn" onclick="pause()">暂停播放</div>
+<div class="btn" onclick="resume()">继续播放</div>
+<div class="btn" onclick="seekForward()">前进10秒</div>
+<div class="btn" onclick="seekBack()">后退10秒</div>
+<div class="btn" onclick="fullScreen()">全屏</div>
+<div class="btn" onclick="exitFullScreen()">退出全屏</div>
+
+</body>
+<script>
+    function play(){
+    //url old : http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4
+    var videoInfo = "{\n" +
+			"\t\"url\":  \"http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4\",\n"+
+			"\t\"width\":  1080,\n"+
+			"\t\"height\":  750\n"+
+			"}"
+      bridge.call("play",videoInfo,function(v){
+            alert(v);
+           // document.getElementById("play").style.display= "none";
+        });
+    }
+
+    function pause(){
+        bridge.call("pause","test syn call",function(v){
+            //document.getElementById("play").style.display= "block";
+            alert(v);
+        });
+    }
+
+    function resume(){
+        bridge.call("resume","test asyn call",function(v){
+            alert(v);
+        });
+    }
+
+    function seekForward(){
+        bridge.call("seek","10",function(v){
+            alert(v);
+        });
+    }
+
+    function seekBack(){
+        bridge.call("seek","-10",function(v){
+            alert(v);
+        });
+    }
+
+    function fullScreen(){
+        bridge.call("fullScreen","test syn call",function(v){
+            alert(v);
+        });
+    }
+
+    function exitFullScreen(){
+        bridge.call("exitFullScreen","test syn call",function(v){
+            alert(v);
+        });
+    }
+</script>
+</html>
